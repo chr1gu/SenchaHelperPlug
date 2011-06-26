@@ -1,0 +1,19 @@
+First you need to hack the Phonegap lib and prevent it from hiding the splash screen after the webview is loaded.
+
+1. Open PhoneGapDelegate.m and go to line 413:
+
+  // -------------------------------------------
+  // comment out these lines:
+  // imageView.hidden = YES;
+  // [window bringSubviewToFront:viewController.view];
+
+  // ..and add these:
+  [window addSubview:viewController.view];
+  [window bringSubviewToFront:imageView];
+  // -------------------------------------------
+
+2. After phonegap and your sencha touch application is loaded call the helper plugin:
+
+  // -------------------------------------------
+  PhoneGap.exec("SenchaHelperPlug.removeSplashScreen");
+  // -------------------------------------------
